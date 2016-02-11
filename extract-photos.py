@@ -8,7 +8,7 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
 from PIL.ExifTags import TAGS
-from shutil import copy
+from shutil import copy2
 
 ROOT_DIR = "/home/alex/data/photos/2016/2016-timelapse02-rpi/"
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
@@ -26,7 +26,7 @@ HOURS_TO_EXTRACT = [(9,30),
                     (15,00),
                     (15,30),
                     (16,00)]
-ADD_OVERLAY = True
+ADD_OVERLAY = False
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 120)
 FRAMERATE = 10
 
@@ -61,7 +61,7 @@ for d in dirs:
 for counter, p in enumerate(photos):
     filename =  "image%04d.jpg" % (counter + 1)
     print filename
-    copy(p,os.path.join(OUTPUT_DIR,filename))
+    copy2(p,os.path.join(OUTPUT_DIR,filename))
     
     if ADD_OVERLAY:
         img = Image.open(os.path.join(OUTPUT_DIR,filename))
