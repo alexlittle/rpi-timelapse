@@ -26,9 +26,9 @@ HOURS_TO_EXTRACT = [(9,30),
                     (15,00),
                     (15,30),
                     (16,00)]
-ADD_OVERLAY = False
+ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 120)
-FRAMERATE = 10
+FRAMERATE = 5
 
 dirs = sorted(os.listdir(ROOT_DIR))
 
@@ -53,30 +53,30 @@ for d in dirs:
     daily_photos = sorted(os.listdir(os.path.join(ROOT_DIR,d)))
 
     for dp in daily_photos:
-	(year, month, day, hour, minute, second) = dp.split("-")
-	for h,m in HOURS_TO_EXTRACT:
-	    if int(h) == int(hour) and int(minute) == int(m):
-		photos.append(os.path.join(ROOT_DIR,d,dp))
+        (year, month, day, hour, minute, second) = dp.split("-")
+        for h,m in HOURS_TO_EXTRACT:
+    	    if int(h) == int(hour) and int(minute) == int(m):
+                photo = {}
+                photo['path'] = os.path.join(ROOT_DIR,d,dp)
+                photo['filename'] = dp
+                photos.append(photo)
 
 for counter, p in enumerate(photos):
     filename =  "image%04d.jpg" % (counter + 1)
     print filename
-    copy2(p,os.path.join(OUTPUT_DIR,filename))
+    copy2(p['path'],os.path.join(OUTPUT_DIR,filename))
     
     if ADD_OVERLAY:
         img = Image.open(os.path.join(OUTPUT_DIR,filename))
         draw = ImageDraw.Draw(img)
     
-        date_string = ""
-        exif_tags, result = get_exif(img)
-        if result:
-            exif_date = exif_tags['DateTimeOriginal'] 
-            date = parser.parse(exif_date)
-            date_string = date.strftime('%B')
+        (year, month, day, hour, minute, second) = p['filename'].split("-")
+        date = datetime.datetime(int(year), int(month), int(day), int(hour))
+        date_string = date.strftime('%d %B %Y')
     
         img_w, img_h = img.size
     
-        text_x = img_w - 700
+        text_x = img_w - 1000
         text_y = img_h - 200
     
         # draw.text((x, y),"Sample Text",(r,g,b))
