@@ -27,8 +27,8 @@ HOURS_TO_EXTRACT = [(9,30),
                     (15,30),
                     (16,00)]
 ADD_OVERLAY = True
-FONT = ImageFont.truetype("FreeSansOblique.ttf", 120)
-FRAMERATE = 5
+FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
+FRAMERATES = [10,20]
 
 dirs = sorted(os.listdir(ROOT_DIR))
 
@@ -48,7 +48,7 @@ def get_exif(i):
 # get the paths to the relevant dirs
 for d in dirs:
     if d.startswith("00"):
-	continue
+	    continue
 
     daily_photos = sorted(os.listdir(os.path.join(ROOT_DIR,d)))
 
@@ -80,11 +80,11 @@ for counter, p in enumerate(photos):
         text_y = img_h - 200
     
         # draw.text((x, y),"Sample Text",(r,g,b))
-        draw.text((text_x, text_y),date_string,(255,255,255),font=FONT)
+        draw.text((text_x, text_y),date_string,(0,0,0),font=FONT)
 
         img.save(os.path.join(OUTPUT_DIR,filename))
 
-# Finally create the actual video
-
-video_generator_command = "ffmpeg -framerate %d -i %s/image%%04d.jpg -c:v libx264 -r %d %s/outputfile.mp4" % (int(FRAMERATE), OUTPUT_DIR, int(FRAMERATE), OUTPUT_DIR ) 
-subprocess.call(video_generator_command, shell=True) 
+# Finally create the actual videos
+for framerate in FRAMERATES:
+	video_generator_command = "ffmpeg -framerate %d -i %s/image%%04d.jpg -c:v libx264 -r %d %s/outputfile-%dfps.mp4" % (int(framerate), OUTPUT_DIR, int(framerate), OUTPUT_DIR, framerate ) 
+	subprocess.call(video_generator_command, shell=True) 
