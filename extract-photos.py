@@ -10,7 +10,7 @@ from PIL import ImageDraw
 from PIL.ExifTags import TAGS
 from shutil import copy2
 
-ROOT_DIR = "/home/alex/data/photos/2016/2016-timelapse/"
+YEARS = [2016,2017]
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
 HOURS_TO_EXTRACT = [#(9,30), 
                     #(10,00), 
@@ -31,7 +31,7 @@ ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
 FRAMERATES = [5,10]
 
-dirs = sorted(os.listdir(ROOT_DIR))
+
 
 photos = []
 
@@ -46,21 +46,26 @@ def get_exif(i):
     else:
         return None, False
 
-# get the paths to the relevant dirs
-for d in dirs:
-    if d.startswith("00"):
-	    continue
 
-    daily_photos = sorted(os.listdir(os.path.join(ROOT_DIR,d)))
+for year in YEARS:
 
-    for dp in daily_photos:
-        (year, month, day, hour, minute, second) = dp.split("-")
-        for h,m in HOURS_TO_EXTRACT:
-    	    if int(h) == int(hour) and int(minute) == int(m):
-                photo = {}
-                photo['path'] = os.path.join(ROOT_DIR,d,dp)
-                photo['filename'] = dp
-                photos.append(photo)
+    year_dir = os.path.join('/home/alex/data/photos',str(year),str(year)+'-timelapse') 
+    dirs = sorted(os.listdir(year_dir))
+    # get the paths to the relevant dirs
+    for d in dirs:
+        if d.startswith("00"):
+    	    continue
+    
+        daily_photos = sorted(os.listdir(os.path.join(year_dir,d)))
+    
+        for dp in daily_photos:
+            (year, month, day, hour, minute, second) = dp.split("-")
+            for h,m in HOURS_TO_EXTRACT:
+        	    if int(h) == int(hour) and int(minute) == int(m):
+                     photo = {}
+                     photo['path'] = os.path.join(year_dir,d,dp)
+                     photo['filename'] = dp
+                     photos.append(photo)
 
 for counter, p in enumerate(photos):
     
