@@ -10,7 +10,7 @@ from PIL import ImageDraw
 from PIL.ExifTags import TAGS
 from shutil import copy2
 
-YEARS = [2016,2017]
+YEARS = [2016,2017,2018]
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
 HOURS_TO_EXTRACT = [#(9,30), 
                     #(10,00), 
