@@ -3,19 +3,18 @@ import datetime
 import pytz
 import subprocess
 
-from dateutil import parser
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
 from PIL.ExifTags import TAGS
 from shutil import copy2
 
-YEARS = [2016,2017,2018]
+YEARS = [2016,2017,2018,2019]
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
 HOURS_TO_EXTRACT = [#(9,30), 
                     #(10,00), 
                     #(10,30), 
-                    (11,00), 
+                    #(11,00), 
                     #(11,30), 
                     (12,00), 
                     #(12,30),
@@ -70,7 +69,7 @@ for year in YEARS:
 for counter, p in enumerate(photos):
     
     filename = "image%04d.jpg" % (counter + 1)
-    print "processing: %s as %s" % (p['filename'], filename )
+    print("processing: %s as %s" % (p['filename'], filename ))
     copy2(p['path'],os.path.join(OUTPUT_DIR,filename))
     
     if ADD_OVERLAY:
