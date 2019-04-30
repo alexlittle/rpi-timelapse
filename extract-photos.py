@@ -18,7 +18,7 @@ HOURS_TO_EXTRACT = [#(9,30),
                     #(11,30), 
                     (12,00), 
                     #(12,30),
-                    (13,00),
+                    #(13,00),
                     #(13,30), 
                     #(14,00),
                     #(14,30), 
@@ -28,7 +28,7 @@ HOURS_TO_EXTRACT = [#(9,30),
 					]
 ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
-FRAMERATES = [5,10]
+FRAMERATES = [10,15]
 
 
 
@@ -85,7 +85,6 @@ for counter, p in enumerate(photos):
         text_x = img_w - 1000
         text_y = img_h - 200
     
-        # draw.text((x, y),"Sample Text",(r,g,b))
         draw.text((text_x, text_y),date_string,(0,0,0),font=FONT)
 
         img.save(os.path.join(OUTPUT_DIR,filename))
