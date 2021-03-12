@@ -9,22 +9,14 @@ from PIL import ImageDraw
 from PIL.ExifTags import TAGS
 from shutil import copy2
 
-YEARS = [2016,2017,2018,2019,2020]
+YEARS = ["/media/alex/Seagate Expansion Drive/timelapse/2016-timelapse/",
+         "/media/alex/Seagate Expansion Drive/timelapse/2017-timelapse/",
+         "/media/alex/Seagate Expansion Drive/timelapse/2018-timelapse/",
+         "/media/alex/Seagate Expansion Drive/timelapse/2019-timelapse/",
+         "/media/alex/Seagate Expansion Drive/timelapse/2020-timelapse/",
+         "/home/alex/data/photos/2021/2021-timelapse"]
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
-HOURS_TO_EXTRACT = [#(9,30), 
-                    #(10,00), 
-                    #(10,30), 
-                    #(11,00), 
-                    #(11,30), 
-                    (12,00), 
-                    #(12,30),
-                    #(13,00),
-                    #(13,30), 
-                    #(14,00),
-                    #(14,30), 
-                    #(15,00),
-                    #(15,30),
-                    #(16,00)
+HOURS_TO_EXTRACT = [(9,00)
 					]
 ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
@@ -46,9 +38,8 @@ def get_exif(i):
         return None, False
 
 
-for year in YEARS:
+for year_dir in YEARS:
 
-    year_dir = os.path.join('/home/alex/data/photos',str(year),str(year)+'-timelapse') 
     dirs = sorted(os.listdir(year_dir))
     # get the paths to the relevant dirs
     for d in dirs:
