@@ -1,3 +1,21 @@
 # rpi-timelapse
 
 For creating timelapse videos from photos 
+
+
+time-lapse-cron.py
+------------------
+File to put on the Raspberry Pi, then set up a cron task to run this script
+regularly (e.g. every 15-30 mins)
+
+With a 16Gb SD card (where the OS is also installed), it'll fit about 6-8 weeks
+of photos when they're taken every 15 mins (day and night). So you'll likely
+need to download the photos to another device fairly regularly.
+
+
+extract-photos.py
+-----------------
+Takes the directories of where the photos have been stored, extracts the ones
+requested (based on the hour/min) and stitches altogether into an mp4 video.
+Ffmeg is used, so you'll need that installed, or alter the video processing part
+to use another tool.

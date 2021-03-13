@@ -9,17 +9,26 @@ from PIL import ImageDraw
 from PIL.ExifTags import TAGS
 from shutil import copy2
 
+
+# Full paths to directories where the photos are stored
 YEARS = ["/media/alex/Seagate Expansion Drive/timelapse/2016-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2017-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2018-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2019-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2020-timelapse/",
          "/home/alex/data/photos/2021/2021-timelapse"]
+
+# directory to store the extracted photos, and where the video will end up
 OUTPUT_DIR = "/home/alex/temp/timelapse/"
-HOURS_TO_EXTRACT = [(9,00)
-					]
+
+# Which hours/mins of the day to extract the photos
+HOURS_TO_EXTRACT = [(9,00)]
+
+# add date overlay and the font used
 ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
+
+# video framerates to create
 FRAMERATES = [10,15]
 
 
