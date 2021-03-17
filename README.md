@@ -19,8 +19,8 @@ For the photos that are taken overnight (or very low light), I tend to just
 delete these, as they're not any use for creating a video. From the setup and
 config I have, I'm pretty confident about removing any photo that is under 1.5Mb
 in filesize, so I have a command to delete these automatically. The command I
-use is ``find . -name "*.jpg" -size -1500k -exec mv {} /home/alex/temp/tl-erase/ \;``
-- but use this command with a *lot* of caution, from exactly the right 
+use is ``find . -name "*.jpg" -size -1500k -exec mv {} /home/alex/temp/tl-erase/ \;``,
+but use this command with a **lot** of caution, from exactly the right 
 directory, otherwise you could remove jpg images on your system that you really
 want to keep.
 
