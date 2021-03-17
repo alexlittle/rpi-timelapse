@@ -10,7 +10,9 @@ from PIL.ExifTags import TAGS
 from shutil import copy2
 
 
-# Full paths to directories where the photos are stored
+# Full paths to directories where the photos are stored, within each of these
+# there should be a directory in the format YYYY-MM-DD (eg "2020-01-31"), with 
+# the daily photos stored in that directory
 YEARS = ["/media/alex/Seagate Expansion Drive/timelapse/2016-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2017-timelapse/",
          "/media/alex/Seagate Expansion Drive/timelapse/2018-timelapse/",
@@ -29,24 +31,13 @@ ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
 
 # video framerates to create
-FRAMERATES = [10,15]
+FRAMERATES = [15]
 
 
-
+# init array for storing photos that will be used
 photos = []
 
-def get_exif(i):
-    ret = {}
-    info = i._getexif()
-    if info:
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            ret[decoded] = value
-        return ret, True
-    else:
-        return None, False
-
-
+# populate the array of photos to be used for the video
 for year_dir in YEARS:
 
     dirs = sorted(os.listdir(year_dir))
@@ -66,6 +57,7 @@ for year_dir in YEARS:
                      photo['filename'] = dp
                      photos.append(photo)
 
+# copy the actual photos to output directory
 for counter, p in enumerate(photos):
     
     filename = "image%04d.jpg" % (counter + 1)
@@ -89,7 +81,7 @@ for counter, p in enumerate(photos):
 
         img.save(os.path.join(OUTPUT_DIR,filename))
 
-# Finally create the actual videos
+# Finally create the actual video/s
 for framerate in FRAMERATES:
 	video_generator_command = "ffmpeg -framerate %d -i %s/image%%04d.jpg -c:v libx264 -r %d %s/outputfile-%dfps.mp4" % (int(framerate), OUTPUT_DIR, int(framerate), OUTPUT_DIR, framerate ) 
 	subprocess.call(video_generator_command, shell=True) 

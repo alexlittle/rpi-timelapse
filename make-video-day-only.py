@@ -11,12 +11,9 @@ from shutil import copy2
 
 YEARS = [2018]
 OUTPUT_DIR = os.path.join("/home/alex/temp/timelapse/", str(YEARS[0]))
-#OUTPUT_DIR = os.path.join("/home/alex/temp/timelapse/")
 ADD_OVERLAY = True
 FONT = ImageFont.truetype("FreeSansOblique.ttf", 100)
 FRAMERATES = [15]
-
-
 
 photos = []
 
@@ -32,7 +29,7 @@ def get_exif(i):
         return None, False
 
 
-'''
+
 for year in YEARS:
 
     year_dir = os.path.join('/home/alex/data/photos',str(year),str(year)+'-timelapse') 
@@ -76,7 +73,7 @@ for counter, p in enumerate(photos):
             img.save(os.path.join(OUTPUT_DIR,filename))
     except OSError:
         pass
- '''   
+   
 # Finally create the actual videos
 for framerate in FRAMERATES:
     video_generator_command = "ffmpeg -framerate %d -i %s/image%%05d.jpg -c:v libx264 -r %d %s/%d-outputfile-%dfps.mp4" % (int(framerate), OUTPUT_DIR, int(framerate), OUTPUT_DIR, YEARS[0], framerate ) 

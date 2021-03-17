@@ -27,17 +27,6 @@ def find_files(base, pattern):
     else:
         return []
 
-def get_exif(i):
-    ret = {}
-    info = i._getexif()
-    if info:
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            ret[decoded] = value
-        return ret, True
-    else:
-        return None, False
-
 photos = []
 
 for year in YEARS:
